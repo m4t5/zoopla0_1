@@ -15,4 +15,4 @@ NEWSPIDER_MODULE = 'zoopla0_1.spiders'
 #USER_AGENT = 'zoopla0_1 (+http://www.yourdomain.com)'
 
 # only crawl first 2 pages
-DEPTH_LIMIT = 2
+DEPTH_LIMIT 2

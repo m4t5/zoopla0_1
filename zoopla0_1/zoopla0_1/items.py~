@@ -14,6 +14,6 @@ class Zoopla01Item(Item):
     description = Field()	# Grade 2 listed charming one bed city centre first floor apartment situated within this impressive Church conversion being well served for Leicester Train Station, the Business quarter & the University of Leicester.
     detailslink = Field()	# /for-sale/details/35981667?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
     agent = Field()		# Frank Innes, LE1.
-    firstListed = Field()	# 45,000 on 2nd Dec 2014 
+    firstListed = Field()	# £45,000 on 2nd Dec 2014 
     thirtyDayViews = Field()	# 12
     totalViews = Field()	# 1,123

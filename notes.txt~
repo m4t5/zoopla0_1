@@ -1,0 +1,172 @@
+
+Test with 
+scrapy shell 
+http://www.zoopla.co.uk/for-sale/property/leicester/?include_retirement_homes=false&include_shared_ownership=false&new_homes=include&q=leicester&results_sort=lowest_price&page_size=10&pn=1
+
+Show a list (intelligible)
+
+def(s):
+  for i in s:
+    print i
+
+s(response.xpath('descendant-or-self::li/@data-listing-id').extract())
+37029465
+37029463
+37029464
+36678890
+35981667
+36720240
+36458337
+35941918
+35607762
+36722194
+
+s(response.xpath('//div[@class="listing-results-right"]//h2//a/text()').extract())
+Parking/garage for sale
+Parking/garage for sale
+Parking/garage for sale
+1 bed property for sale
+Studio for sale
+1 bed flat for sale
+1 bed flat for sale
+1 bed flat for sale
+1 bed flat for sale
+Studio for sale
+
+t(response.xpath('//a[@class="listing-results-price
+text-price"]/text()').extract())
+£394,995
+£110,000
+£224,995
+
+£14,000
+
+£14,000
+
+£20,000
+£35,000
+
+£39,950
+
+£40,000
+
+£45,000
+£45,000
+£47,785
+£48,500
+
+
+s(response.xpath('//span[@itemprop="address"]/a[@href]/text()').extract())
+Turnbull Drive, Braunstone, Leicester LE3
+Ruskington Drive, Wigston Fields, Leicester LE18
+121 Edward Avenue, Braunstone, Leicester LE3
+Rearsby Road, Leicester LE4
+Carrick Point, Falmouth Road, Leicester, Leicestershire LE5
+Barnsdale Road, Leicester LE4
+Ground Floor, Glenfield Road, Leicester LE3
+Carrick Point, Falmouth Road, Leicester LE5
+Oxford Street, Leicester LE1
+York Street, Leicester LE1
+
+
+
+
+
+Removing \n and \r from data
+
+def t(a)
+  for i in a:
+    print re.sub("\s|[\r\n]","",i)
+
+
+s(response.xpath('//li//div[@class="listing-results-right"]//span[@itemprop="address"]//a//text()').extract())
+Turnbull Drive, Braunstone, Leicester LE3
+Ruskington Drive, Wigston Fields, Leicester LE18
+121 Edward Avenue, Braunstone, Leicester LE3
+Rearsby Road, Leicester LE4
+Carrick Point, Falmouth Road, Leicester, Leicestershire LE5
+Barnsdale Road, Leicester LE4
+Ground Floor, Glenfield Road, Leicester LE3
+Carrick Point, Falmouth Road, Leicester LE5
+Oxford Street, Leicester LE1
+York Street, Leicester LE1
+
+
+
+s(response.xpath('//li//div[@class="listing-results-right"]//h2//a//text()').extract())
+Parking/garage for sale
+Parking/garage for sale
+Parking/garage for sale
+1 bed property for sale
+Studio for sale
+1 bed flat for sale
+1 bed flat for sale
+1 bed flat for sale
+1 bed flat for sale
+Studio for sale
+
+
+s((response.xpath('//li//div[@class="listing-results-left"]//div["status-wrapper"]//a[@itemprop="photo"]//@href').extract()))
+/for-sale/details/37029465?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/for-sale/details/37029463?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/for-sale/details/37029464?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/for-sale/details/36678890?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/for-sale/details/35981667?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/for-sale/details/36720240?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/for-sale/details/36458337?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/for-sale/details/35941918?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/new-homes/details/35607762?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+/for-sale/details/36722194?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c
+
+
+
+s(response.xpath('//span[@itemprop="name"]/text()').extract())
+Zoopla
+Shonki Brothers Ltd - Auctions Department, LE2.
+Shonki Brothers Ltd - Auctions Department, LE2.
+Shonki Brothers Ltd - Auctions Department, LE2.
+Rathods Property Centre, LE4.
+Frank Innes, LE1.
+Berkley Estates, LE3.
+Shonki Brothers Ltd - Auctions Department, LE2.
+Spencers Countrywide, LE1.
+William H Brown, LE1.
+Vesta Properties Agency Ltd, CV1.
+
+
+Remove search id from subsequent link
+ a[1]
+u'/for-sale/details/37029463?search_identifier=e8afc4c50465cb273f7aec21c2a4d97c'
+>>> print re.sub("\s|\?search_identifier(.)*","",a[1])
+/for-sale/details/37029463
+>>>
+
+Import from cwd
+import os
+import sys
+sys.path.append(os.getcwd())
+import foo
+
+
+To run, make cwd scrapy/zoopla/zoopla0_1
+Debug - 
+scrapy parse --spider zoopla -c parse_item -d 2
+http://www.zoopla.co.uk/for-sale/property/leicester/?include_retirement_homes=false&include_shared_ownership=false&new_homes=include&q=leicester&results_sort=lowest_price&page_size=10&pn=1
+
+
+
+Scraping details page from search page
+
+scrapy shell "http://www.zoopla.co.uk/for-sale/details/35339818"
+
+response.xpath('//h1[@class="listing-details-h1"]/text()').extract()
+[u'1 bed flat for sale']
+
+response.xpath('//h2[@itemprop="streetAddress"]/text()').extract()
+[u'Bates Court, Station Street, South Wigston, Leicestershire LE18']
+
+
+response.xpath('//div[@class="listing-details-price text-price"]').extract()
+[u'<div class="listing-details-price text-price"><strong>\n\n\n\n\n\n
+<span class="price-modifier">Offers over</span>\n\n\n\n\n
+\xa343,000\n\n\n\n</strong>\n\n\n        </div>']
